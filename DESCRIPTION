@@ -1,0 +1,11 @@
+Package: hahmmr
+Title: Haplotype-aware Hidden Markov Model for RNA
+Version: 0.1.0
+Authors@R: 
+    person("Teng", "Gao", , "tgaoteng@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0196-689X"))
+Description: Haplotype-aware Hidden Markov Model for RNA (HaHMMR) is a method for detecting CNVs from RNA-seq data. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
