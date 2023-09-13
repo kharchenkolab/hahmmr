@@ -37,6 +37,18 @@ dpoilog <- function(x, mu, sig, log=FALSE){
   }
 }
 
+#' calculate joint likelihood of a PLN model
+#' @param Y_obs numeric vector Gene expression counts
+#' @param lambda_ref numeric vector Reference expression levels
+#' @param d numeric Total library size
+#' @return numeric Joint log likelihood
+#' @keywords internal
+l_lnpois = function(Y_obs, lambda_ref, d, mu, sig, phi = 1) {
+    if (any(sig <= 0)) {stop(glue('negative sigma. value: {sig}'))}
+    if (length(sig) == 1) {sig = rep(sig, length(Y_obs))}
+    sum(log(dpoilog(Y_obs, mu + log(phi * d * lambda_ref), sig)))
+}
+
 #' Beta-binomial distribution density function
 #' A distribution is beta-binomial if p, the probability of success, 
 #' in a binomial distribution has a beta distribution with shape 
@@ -52,4 +64,15 @@ dpoilog <- function(x, mu, sig, log=FALSE){
 #' @keywords internal
 dbbinom <- function(x, size, alpha = 1, beta = 1, log = FALSE) {
     cppdbbinom(x, size, alpha, beta, log[1L])
+}
+
+#' calculate joint likelihood of allele data
+#' @param AD numeric vector Variant allele depth
+#' @param DP numeric vector Total allele depth
+#' @param alpha numeric Alpha parameter of Beta-Binomial distribution
+#' @param beta numeric Beta parameter of Beta-Binomial distribution
+#' @return numeric Joint log likelihood
+#' @keywords internal
+l_bbinom = function(AD, DP, alpha, beta) {
+    sum(dbbinom(AD, DP, alpha, beta, log = TRUE))
 }

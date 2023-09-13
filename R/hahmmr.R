@@ -202,7 +202,7 @@ likelihood_allele = function(hmm) {
 #' @param gamma numeric Overdispersion in the allele-specific expression
 #' @return character vector Decoded states
 #' @keywords internal
-run_allele_hmm_s5 = function(pAD, DP, p_s, t = 1e-5, theta_min = 0.08, gamma = 20, prior = NULL) {
+run_allele_hmm_s5 = function(pAD, DP, p_s, t = 1e-5, theta_min = 0.08, gamma = 20, prior = NULL, ...) {
 
     gamma = unique(gamma)
 
@@ -262,6 +262,7 @@ run_allele_hmm_s5 = function(pAD, DP, p_s, t = 1e-5, theta_min = 0.08, gamma = 2
 #' Run a 3-state allele HMM
 #' @param pAD integer vector Paternal allele counts
 #' @param DP integer vector Total alelle counts
+#' @param R numeric vector Variant mapping bias direction
 #' @param p_s numeric vector Phase switch probabilities
 #' @param t numeric Transition probability between copy number states
 #' @param theta_min numeric Minimum haplotype frequency deviation threshold
@@ -305,6 +306,7 @@ calc_allele_lik_s3 = function(pAD, DP, R, p_s, t, theta, gamma = 20, r = 0.015) 
 #' Run 7-state joint HMM on a pseudobulk profile
 #' @param pAD integer vector Paternal allele counts
 #' @param DP integer vector Total alelle counts
+#' @param R numeric vector Variant mapping bias direction
 #' @param p_s numeric vector Phase switch probabilities
 #' @param theta_min numeric Minimum haplotype imbalance threshold
 #' @param gamma numeric Overdispersion in the allele-specific expression
@@ -341,7 +343,7 @@ run_joint_hmm_s7 = function(
     w = c('neu' = 1, 'del' = 1, 'amp' = 1, 'loh' = 1)
         
     prior = sapply(1:length(states), function(to){
-            get_trans_probs(
+            get_trans_probs_s7(
                 t = t, p_s = 0, w,
                 cn_from = 'neu', phase_from = NA,
                 cn_to = states_cn[to], phase_to = states_phase[to])
@@ -350,7 +352,7 @@ run_joint_hmm_s7 = function(
     states_index = 1:length(states)
     
     # transition matrices
-    As = calc_trans_mat_m(t, p_s, w, states_cn, states_phase)
+    As = calc_trans_mat_s7(t, p_s, w, states_cn, states_phase)
 
     # display(As[,,10])
 
@@ -523,11 +525,10 @@ viterbi_joint_vec = function(hmm) {
 run_joint_hmm_s15 = function(
     pAD, DP, p_s, Y_obs = 0, lambda_ref = 0, d_total = 0, theta_min = 0.08, theta_neu = 0,
     bal_cnv = TRUE, phi_del = 2^(-0.25), phi_amp = 2^(0.25), phi_bamp = phi_amp, phi_bdel = phi_del, 
-    alpha = 1, beta = 1, 
-    mu = 0, sig = 1,
+    mu = 0, sig = 1, r = 0.015,
     t = 1e-5, gamma = 18,
     prior = NULL, exp_only = FALSE, allele_only = FALSE,
-    classify_allele = FALSE, phasing = TRUE, debug = FALSE
+    classify_allele = FALSE, debug = FALSE, ...
 ) {
 
     # states
@@ -548,7 +549,7 @@ run_joint_hmm_s15 = function(
     if (is.null(prior)) {
         # encourage CNV from telomeres
         prior = sapply(1:length(states), function(to){
-                get_trans_probs(
+                get_trans_probs_s15(
                     t = min(t * 100, 1), p_s = 0, w,
                     cn_from = 'neu', phase_from = NA,
                     cn_to = states_cn[to], phase_to = states_phase[to])
@@ -571,15 +572,6 @@ run_joint_hmm_s15 = function(
         states_index = c(1, 6:9)
 
         Y_obs = rep(NA, length(Y_obs))
-    }
-
-    if (!phasing) {
-        states_index = c(1, 6)
-        
-        p_s = ifelse(is.na(pAD), p_s, 0)
-        pAD = ifelse(pAD > (DP - pAD), pAD, DP - pAD)
-        theta_neu = 0.1
-        theta_min = 0.45
     }
 
     if (classify_allele) {
