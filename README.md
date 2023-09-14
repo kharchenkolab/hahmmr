@@ -42,7 +42,6 @@ bulk = get_bulk(
         count_mat = gene_counts[,sample,drop=F],
         df_allele = allele_counts,
         lambdas_ref = ref_internal,
-        genetic_map = genetic_map_hg38,
         gtf = gtf_hg38
     ) %>% 
     analyze_joint()
