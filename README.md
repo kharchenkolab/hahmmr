@@ -34,7 +34,7 @@ The **integer** expression counts (`count_mat`) should be a one-column matrix wh
 Here is an example using the RNA-seq samples from a Meningioma [study](https://pubmed.ncbi.nlm.nih.gov/27548314/).
 
 ```
-allele_counts = fread('http://pklab.med.harvard.edu/teng/data/hmm_example/MN-5_TUMOR_allele_counts.tsv.gz')
+allele_counts = data.table::fread('http://pklab.med.harvard.edu/teng/data/hmm_example/MN-5_TUMOR_allele_counts.tsv.gz')
 gene_counts = readRDS(url('http://pklab.med.harvard.edu/teng/data/hmm_example/MN_gene_counts.rds'))
 ```
 
