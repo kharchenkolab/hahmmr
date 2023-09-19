@@ -14,9 +14,10 @@
 ## Preparing data
 First, obtain expression counts and phased allele counts from the RNA-seq sample. The expression counts can be prepared using a transcript quantification tool such as [Salmon](https://salmon.readthedocs.io/en/latest/salmon.html). The phased allele counts can be prepared using the [pileup_and_phase.R](https://kharchenkolab.github.io/numbat/articles/numbat.html#preparing-data) pipeline from Numbat. A [Docker](https://kharchenkolab.github.io/numbat/articles/numbat.html#docker) container is available for running this pipeline.
 
-For example, within the Numbat Docker you can run `pileup_and_phase` like this:
+For example, within the Numbat Docker you can run `pileup_and_phase` in bulk RNA-seq mode like this:
 ```
 Rscript /numbat/inst/bin/pileup_and_phase.R \
+    --bulk \
     --label {sample} \
     --samples {sample} \
     --bams /mnt/mydata/{sample}.bam \
