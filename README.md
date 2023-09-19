@@ -1,5 +1,10 @@
 # HaHMMR
+
+<!-- badges: start -->
+[![<kharchenkolab>](https://circleci.com/gh/kharchenkolab/hahmmr.svg?style=svg)](https://app.circleci.com/pipelines/github/kharchenkolab/hahmmr)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8342630.svg)](https://doi.org/10.5281/zenodo.8342630)
+<!-- badges: end -->
+
 <img src="hahmmr_logo.png" align="right" width="150">
 
 **H**aplotype-**a**ware **H**idden **M**arkov **M**odel for **R**NA (HaHMMR) is a method for detecting CNVs from bulk RNA-seq data. Extending the haplotype-aware HMM in [Numbat](https://github.com/kharchenkolab/numbat) for single-cell RNA-seq, HaHMMR offers enhanced capabilities for detecting low-clonality CNVs from bulk data.
