@@ -391,7 +391,8 @@ fit_ref_sse = function(Y_obs, lambdas_ref, gtf, min_lambda = 2e-6, verbose = FAL
 
 #' Combine allele and expression pseudobulks
 #' @param allele_bulk dataframe Bulk allele profile
-#' @param genetic_map dataframe Genetic map
+#' @param exp_bulk dataframe Bulk expression profile
+#' @param gtf dataframe Transcript gtf
 #' @return dataframe Pseudobulk allele and expression profile
 #' @keywords internal
 combine_bulk = function(allele_bulk, exp_bulk, gtf) {

@@ -51,8 +51,10 @@ get_allele_hmm_s2 = function(pAD, DP, R, p_s, theta, gamma = 20, r = 0.015) {
 #' @param pAD integer vector Paternal allele counts
 #' @param DP integer vector Total alelle counts
 #' @param p_s numeric vector Phase switch probabilities
-#' @param theta numeric Haplotype imbalance
+#' @param theta_min numeric Haplotype imbalance
 #' @param gamma numeric Overdispersion in the allele-specific expression
+#' @param t numeric Transition probability between haplotype states
+#' @param r numeric Variant mapping bias
 #' @return HMM object
 #' @keywords internal
 get_allele_hmm_s3 = function(pAD, DP, R, p_s, t, theta_min, gamma = 20, r = 0.015) {
@@ -315,13 +317,12 @@ calc_allele_lik_s3 = function(pAD, DP, R, p_s, t, theta, gamma = 20, r = 0.015) 
 #' @param d_total integer Total library size for expression counts
 #' @param phi_del numeric Expected fold change for deletion
 #' @param phi_amp numeric Expected fold change for amplification
-#' @param phi_bamp numeric Expected fold change for balanced amplification
-#' @param phi_bdel numeric Expected fold change for balanced deletion
 #' @param mu numeric Global expression bias
 #' @param sig numeric Global expression variance
 #' @param t numeric Transition probability between copy number states
-#' @param exp_only logical Whether to only use expression data
-#' @param allele_only logical Whether to only use allele data
+#' @param r numeric Variant mapping bias
+#' @param debug logical Whether to print debug messages
+#' @return character vector Decoded states
 #' @keywords internal
 run_joint_hmm_s7 = function(
     pAD, DP, R, p_s, Y_obs, lambda_ref, d_total, 
