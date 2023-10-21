@@ -13,9 +13,13 @@ get_allele_hmm_s3(pAD, DP, R, p_s, t, theta_min, gamma = 20, r = 0.015)
 
 \item{p_s}{numeric vector Phase switch probabilities}
 
+\item{t}{numeric Transition probability between haplotype states}
+
+\item{theta_min}{numeric Haplotype imbalance}
+
 \item{gamma}{numeric Overdispersion in the allele-specific expression}
 
-\item{theta}{numeric Haplotype imbalance}
+\item{r}{numeric Variant mapping bias}
 }
 \value{
 HMM object

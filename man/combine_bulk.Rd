@@ -9,7 +9,9 @@ combine_bulk(allele_bulk, exp_bulk, gtf)
 \arguments{
 \item{allele_bulk}{dataframe Bulk allele profile}
 
-\item{genetic_map}{dataframe Genetic map}
+\item{exp_bulk}{dataframe Bulk expression profile}
+
+\item{gtf}{dataframe Transcript gtf}
 }
 \value{
 dataframe Pseudobulk allele and expression profile

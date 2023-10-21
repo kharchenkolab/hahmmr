@@ -52,13 +52,12 @@ run_joint_hmm_s7(
 
 \item{gamma}{numeric Overdispersion in the allele-specific expression}
 
-\item{phi_bamp}{numeric Expected fold change for balanced amplification}
+\item{r}{numeric Variant mapping bias}
 
-\item{phi_bdel}{numeric Expected fold change for balanced deletion}
-
-\item{exp_only}{logical Whether to only use expression data}
-
-\item{allele_only}{logical Whether to only use allele data}
+\item{debug}{logical Whether to print debug messages}
+}
+\value{
+character vector Decoded states
 }
 \description{
 Run 7-state joint HMM on a pseudobulk profile
