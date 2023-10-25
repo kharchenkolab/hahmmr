@@ -18,4 +18,6 @@ dpoilog(x, mu, sig, log = FALSE)
 \description{
 Returns the density for the Poisson lognormal distribution with parameters mu and sig
 }
-\keyword{internal}
+\examples{
+p = dpoilog(1, 1, 1)
+}

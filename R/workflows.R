@@ -25,6 +25,12 @@ NULL
 #' @param genetic_map dataframe Genetic map
 #' @param verbose logical Whether to print progress
 #' @return dataframe Pseudobulk gene expression and allele profile
+#' @examples
+#' bulk_example = get_bulk(
+#'     count_mat = gene_counts_example,
+#'     lambdas_ref = ref_hca,
+#'     df_allele = df_allele_example,
+#'     gtf = gtf_hg38)
 #' @export
 get_bulk = function(count_mat, lambdas_ref, df_allele, gtf, genetic_map = NULL, min_depth = 0, nu = 1, verbose = TRUE) {
 
@@ -117,6 +123,10 @@ check_matrix = function(count_mat) {
 #' @param nu numeric Phase switch rate
 #' @param min_depth integer Minimum coverage to filter SNPs
 #' @return dataframe Pseudobulk allele profile
+#' @examples
+#' bulk_example = get_allele_bulk(
+#'     df_allele = df_allele_example,
+#'     gtf = gtf_hg38)
 #' @export
 get_allele_bulk = function(df_allele, gtf, genetic_map = NULL, nu = 0.5, min_depth = 0) {
 
@@ -469,6 +479,8 @@ check_cols = function(df, cols) {
 #' @param theta_start numeric Starting value for theta_min
 #' @param verbose logical Whether to print progress
 #' @return dataframe Bulk allele profile with CNV states
+#' @examples
+#' bulk_example = analyze_allele(bulk_example, hmm = 'S5')
 #' @export
 analyze_allele = function(bulk, t = 1e-5, theta_min = 0.08, gamma = 20, nu = 0.5, r = 0.015, 
     hmm = 'S5', fit_theta = FALSE, fit_gamma = FALSE, theta_start = 0.05, verbose = TRUE) {
@@ -570,6 +582,8 @@ analyze_allele = function(bulk, t = 1e-5, theta_min = 0.08, gamma = 20, nu = 0.5
 #' @param theta_start numeric Starting value for theta_min
 #' @param verbose logical Whether to print progress
 #' @return dataframe Bulk allele and expression profile with CNV states
+#' @examples
+#' bulk_example = analyze_joint(bulk_example, hmm = 'S15')
 #' @export
 analyze_joint = function(
     bulk, t = 1e-5, gamma = 20, theta_min = 0.08, logphi_min = 0.25, hmm = 'S15',

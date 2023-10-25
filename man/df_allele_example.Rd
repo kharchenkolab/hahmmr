@@ -5,7 +5,7 @@
 \alias{df_allele_example}
 \title{example allele count dataframe}
 \format{
-An object of class \code{data.frame} with 41167 rows and 11 columns.
+An object of class \code{data.table} (inherits from \code{data.frame}) with 9957 rows and 11 columns.
 }
 \usage{
 df_allele_example

@@ -12,7 +12,12 @@ logPi (log transition prob matrix), delta (prior for each state),
 alpha (alpha for each state), beta (beta for each state),
 states (states), p_s (phase switch probs)}
 }
+\value{
+numeric; total log likelihood
+}
 \description{
 Only compute total log likelihood from an allele HMM
 }
-\keyword{internal}
+\examples{
+likelihood_allele(pre_likelihood_hmm)
+}

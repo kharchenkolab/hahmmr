@@ -109,6 +109,7 @@ get_allele_hmm_s3 = function(pAD, DP, R, p_s, t, theta_min, gamma = 20, r = 0.01
 #' logPi (log transition prob matrix), delta (prior for each state), 
 #' alpha (alpha for each state), beta (beta for each state), 
 #' states (states), p_s (phase switch probs)
+#' @return character vector Decoded states
 #' @keywords internal
 viterbi_allele <- function(hmm) {
 
@@ -137,7 +138,10 @@ viterbi_allele <- function(hmm) {
 #' logPi (log transition prob matrix), delta (prior for each state), 
 #' alpha (alpha for each state), beta (beta for each state), 
 #' states (states), p_s (phase switch probs)
-#' @keywords internal
+#' @return numeric matrix; posterior probabilities
+#' @examples
+#' forward_back_allele(pre_likelihood_hmm)
+#' @export
 forward_back_allele = function(hmm) {
 
     # case of one-data point
@@ -172,7 +176,10 @@ forward_back_allele = function(hmm) {
 #' logPi (log transition prob matrix), delta (prior for each state), 
 #' alpha (alpha for each state), beta (beta for each state), 
 #' states (states), p_s (phase switch probs)
-#' @keywords internal
+#' @return numeric; total log likelihood
+#' @examples
+#' likelihood_allele(pre_likelihood_hmm)
+#' @export
 likelihood_allele = function(hmm) {
         
     N <- hmm$N
@@ -202,8 +209,14 @@ likelihood_allele = function(hmm) {
 #' @param t numeric Transition probability between copy number states
 #' @param theta_min numeric Minimum haplotype frequency deviation threshold
 #' @param gamma numeric Overdispersion in the allele-specific expression
+#' @param prior numeric vector Prior probabilities for each state
+#' @param ... Additional parameters
 #' @return character vector Decoded states
-#' @keywords internal
+#' @examples
+#' with(bulk_example, {
+#'     run_allele_hmm_s5(pAD = pAD, DP = DP, R = R, p_s = p_s, theta_min = 0.08, gamma = 30)
+#' })
+#' @export
 run_allele_hmm_s5 = function(pAD, DP, p_s, t = 1e-5, theta_min = 0.08, gamma = 20, prior = NULL, ...) {
 
     gamma = unique(gamma)
@@ -280,10 +293,12 @@ run_allele_hmm_s3 = function(pAD, DP, R, p_s, t = 1e-5, theta_min = 0.08, gamma 
 #' Calculate allele likelihoods for 2-state allele HMM
 #' @param pAD integer vector Paternal allele counts
 #' @param DP integer vector Total alelle counts
+#' @param R numeric vector Variant mapping bias direction
 #' @param p_s numeric vector Phase switch probabilities
 #' @param theta numeric Haplotype imbalance
 #' @param gamma numeric Overdispersion in the allele-specific expression
-#' @keywords internal                         
+#' @return numeric vector Allele likelihoods
+#' @keywords internal          
 calc_allele_lik_s2 = function (pAD, DP, R, p_s, theta, gamma = 20, r = 0.015) {
     hmm = get_allele_hmm_s2(pAD, DP, R, p_s, theta, gamma = gamma, r = r)
     LL = likelihood_allele(hmm)
@@ -397,7 +412,7 @@ run_joint_hmm_s7 = function(
         p_s = p_s
     )
 
-    MPC = states[viterbi_joint_vec(hmm)]
+    MPC = states[viterbi_joint(hmm)]
         
     return(MPC)
 }
@@ -467,8 +482,9 @@ get_trans_probs_s7 = function(t, p_s, w, cn_from, phase_from, cn_to, phase_to) {
 #' lambda (reference expression rate), mu (global expression mean), sig (global expression standard deviation), 
 #' logPi (log transition prob matrix), phi (expression fold change for each state), delta (prior for each state), 
 #' alpha (alpha for each state), beta (beta for each state), states (states), p_s (phase switch probs)
+#' @return character vector Decoded states
 #' @keywords internal
-viterbi_joint_vec = function(hmm) {
+viterbi_joint = function(hmm) {
 
     N <- length(hmm$x)
     M <- nrow(hmm$logPi[,,1])
@@ -509,6 +525,9 @@ viterbi_joint_vec = function(hmm) {
 #' @param DP integer vector Total alelle counts
 #' @param p_s numeric vector Phase switch probabilities
 #' @param theta_min numeric Minimum haplotype imbalance threshold
+#' @param theta_neu numeric Haplotype imbalance threshold for neutral state
+#' @param bal_cnv logical Whether to include balanced CNV states
+#' @param r numeric Variant mapping bias
 #' @param gamma numeric Overdispersion in the allele-specific expression
 #' @param Y_obs numeric vector Observed gene counts
 #' @param lambda_ref numeric vector Reference expression rates
@@ -520,9 +539,19 @@ viterbi_joint_vec = function(hmm) {
 #' @param mu numeric Global expression bias
 #' @param sig numeric Global expression variance
 #' @param t numeric Transition probability between copy number states
+#' @param prior numeric vector Prior probabilities for each state
 #' @param exp_only logical Whether to only use expression data
 #' @param allele_only logical Whether to only use allele data
-#' @keywords internal
+#' @param classify_allele logical Whether to classify allele states
+#' @param debug logical Whether to print debug messages
+#' @param ... Additional parameters
+#' @return character vector Decoded states
+#' @examples
+#' with(bulk_example, {
+#'     run_joint_hmm_s15(pAD = pAD, DP = DP, p_s = p_s, Y_obs = Y_obs, lambda_ref = lambda_ref, 
+#'     d_total = na.omit(unique(d_obs)), mu = mu, sig = sig, t = 1e-5, gamma = 30, theta_min = 0.08)
+#' })
+#' @export
 run_joint_hmm_s15 = function(
     pAD, DP, p_s, Y_obs = 0, lambda_ref = 0, d_total = 0, theta_min = 0.08, theta_neu = 0,
     bal_cnv = TRUE, phi_del = 2^(-0.25), phi_amp = 2^(0.25), phi_bamp = phi_amp, phi_bdel = phi_del, 
@@ -605,6 +634,7 @@ run_joint_hmm_s15 = function(
     states = states[states_index] %>% setNames(1:length(.))
                 
     N = length(Y_obs)
+    M = length(states)
 
     if (length(mu) == 1) {
         mu = rep(mu, N)
@@ -616,23 +646,23 @@ run_joint_hmm_s15 = function(
     }
 
     hmm = list(
-        x = matrix(pAD), 
-        d = matrix(DP),
-        y = matrix(Y_obs),
-        l = matrix(d_total),
-        lambda = matrix(lambda_ref),
-        mu = matrix(mu),
-        sig = matrix(sig),
+        x = pAD, 
+        d = DP,
+        y = Y_obs,
+        l = d_total,
+        lambda = lambda_ref,
+        mu = mu,
+        sig = sig,
         logPi = log(As), 
-        phi = matrix(phi_states),
-        delta = matrix(prior), 
-        alpha = matrix(alpha_states),
-        beta = matrix(beta_states),
-        states = matrix(states),
+        phi = phi_states,
+        delta = prior, 
+        alpha = matrix(rep(alpha_states, N), ncol = M, byrow = TRUE),
+        beta = matrix(rep(beta_states, N), ncol = M, byrow = TRUE),
+        states = states,
         p_s = p_s
     )
 
-    MPC = states[viterbi_joint_mat(hmm)]
+    MPC = states[viterbi_joint(hmm)]
         
     return(MPC)
 }
@@ -702,6 +732,7 @@ get_trans_probs_s15 = function(t, p_s, w, cn_from, phase_from, cn_to, phase_to) 
 #' lambda (reference expression rate), mu (global expression mean), sig (global expression standard deviation), 
 #' logPi (log transition prob matrix), phi (expression fold change for each state), delta (prior for each state), 
 #' alpha (alpha for each state), beta (beta for each state), states (states), p_s (phase switch probs)
+#' @return character vector; decoded states
 #' @keywords internal
 viterbi_joint_mat <- function(hmm) {
 
@@ -745,51 +776,4 @@ viterbi_joint_mat <- function(hmm) {
     z = viterbi_compute(log(hmm$delta), logprob, hmm$logPi, N, M, nu, z)
         
     return(z)
-}
-
-############ Clonal deletion HMM ############
-
-#' Viterbi for clonal LOH detection 
-#' @param hmm HMM object; expect variables x (SNP count), snp_sig (snp rate standard deviation), 
-#' pm (snp density for ref and loh states), pn (gene lengths),
-#' d (total expression depth), y (expression count), lambda_star (reference expression rate), 
-#' mu (global expression mean), sig (global expression standard deviation),
-#' Pi (transition prob matrix), delta (prior for each state),
-#' phi (expression fold change for each state)
-#' @keywords internal
-viterbi_loh <- function (hmm, ...){
-
-    n <- length(hmm$x)
-    m <- nrow(hmm$Pi[,,1])
-    nu <- matrix(NA, nrow = n, ncol = m)
-    mu <- matrix(NA, nrow = n, ncol = m + 1)
-    z <- rep(NA, n)
-    
-    nu[1, ] = log(hmm$delta)
-    logPi <- log(hmm$Pi)
-
-    for (i in 1:n) {
-
-        if (i > 1) {
-            matrixnu <- matrix(nu[i - 1, ], nrow = m, ncol = m)
-            nu[i, ] = apply(matrixnu + logPi[,,i], 2, max)
-        }
-        
-        nu[i, ] = nu[i, ] + dnbinom(x = hmm$x[i], mu = hmm$pm * hmm$pn[i], size = hmm$snp_sig, log = TRUE)
-
-        nu[i, ] = nu[i, ] + dpoilog(
-            x = rep(hmm$y[i], m),
-            sig = rep(hmm$sig, m),
-            mu = hmm$mu + log(hmm$phi * hmm$d * hmm$lambda_star[i]),
-            log = TRUE
-        )
-    }
-             
-    z[n] <- which.max(nu[n, ])
-
-    for (i in seq(n - 1, 1, -1)) z[i] <- which.max(logPi[,,i+1][, z[i+1]] + nu[i, ])
-
-    LL = max(nu[n, ])
-        
-    return(hmm$states[z])
 }

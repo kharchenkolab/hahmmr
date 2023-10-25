@@ -12,6 +12,12 @@ l_lnpois(Y_obs, lambda_ref, d, mu, sig, phi = 1)
 \item{lambda_ref}{numeric vector Reference expression levels}
 
 \item{d}{numeric Total library size}
+
+\item{mu}{numeric Global mean expression}
+
+\item{sig}{numeric Global standard deviation of expression}
+
+\item{phi}{numeric Fold change of expression}
 }
 \value{
 numeric Joint log likelihood
@@ -19,4 +25,6 @@ numeric Joint log likelihood
 \description{
 calculate joint likelihood of a PLN model
 }
-\keyword{internal}
+\examples{
+l_lnpois(c(1, 2), c(1, 2), 1, 1, 1)
+}

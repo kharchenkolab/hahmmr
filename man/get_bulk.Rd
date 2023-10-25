@@ -38,3 +38,10 @@ dataframe Pseudobulk gene expression and allele profile
 \description{
 Produce combined bulk expression and allele profile
 }
+\examples{
+bulk_example = get_bulk(
+    count_mat = gene_counts_example,
+    lambdas_ref = ref_hca,
+    df_allele = df_allele_example,
+    gtf = gtf_hg38)
+}

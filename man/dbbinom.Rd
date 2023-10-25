@@ -31,4 +31,6 @@ in a binomial distribution has a beta distribution with shape
 parameters alpha > 0 and beta > 0
 For more details, see extraDistr::dbbinom
 }
-\keyword{internal}
+\examples{
+dbbinom(1, 1, 1, 1)
+}

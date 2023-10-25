@@ -23,3 +23,8 @@ dataframe Pseudobulk allele profile
 \description{
 Aggregate into pseudobulk alelle profile
 }
+\examples{
+bulk_example = get_allele_bulk(
+    df_allele = df_allele_example,
+    gtf = gtf_hg38)
+}

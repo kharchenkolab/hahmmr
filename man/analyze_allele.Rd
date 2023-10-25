@@ -47,3 +47,6 @@ dataframe Bulk allele profile with CNV states
 \description{
 Analyze allele profile
 }
+\examples{
+bulk_example = analyze_allele(bulk_example, hmm = 'S5')
+}

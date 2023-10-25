@@ -2,7 +2,11 @@
 library(hahmmr)
 
 test_that("dpoilog works", {
-  expect_equal(hahmmr:::dpoilog(c(1,11),c(1,1),c(1,1)), c(0.175733342664327, 0.0150105250670325))
+  expect_equal(dpoilog(c(1,11),c(1,1),c(1,1)), c(0.175733342664327, 0.0150105250670325))
+})
+
+test_that("l_lnpois works", {
+  expect_equal(l_lnpois(c(1,2,3), c(0.1, 0.2, 0.3), 10, 1, 1), -6.69290026940248)
 })
 
 test_that("logSumExp() works", {
@@ -16,7 +20,7 @@ test_that("logSumExp() works", {
 
 test_that("Check that likelihood_allele() works as expected", {
 
-  LL = hahmmr:::likelihood_allele(pre_likelihood_hmm)
+  LL = likelihood_allele(pre_likelihood_hmm)
   expect_equal(as.integer(LL), -736)
 
 })

@@ -21,4 +21,6 @@ numeric Joint log likelihood
 \description{
 calculate joint likelihood of allele data
 }
-\keyword{internal}
+\examples{
+l_bbinom(c(1, 2), c(1, 2), 1, 1)
+}

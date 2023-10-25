@@ -12,7 +12,12 @@ logPi (log transition prob matrix), delta (prior for each state),
 alpha (alpha for each state), beta (beta for each state),
 states (states), p_s (phase switch probs)}
 }
+\value{
+numeric matrix; posterior probabilities
+}
 \description{
 Forward-backward algorithm for allele HMM
 }
-\keyword{internal}
+\examples{
+forward_back_allele(pre_likelihood_hmm)
+}

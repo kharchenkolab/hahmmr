@@ -5,7 +5,7 @@
 \alias{bulk_example}
 \title{example pseudobulk dataframe}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3935 rows and 83 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 10321 rows and 58 columns.
 }
 \usage{
 bulk_example

@@ -13,7 +13,9 @@ NULL
 #' @param sig standard deviation of lognormal distribution
 #' @param log boolean Return the log density if TRUE (default=FALSE)
 #' @return NULL
-#' @keywords internal
+#' @examples
+#' p = dpoilog(1, 1, 1)
+#' @export
 dpoilog <- function(x, mu, sig, log=FALSE){
   if (!(length(x) == length(mu) & length(x) == length(sig))) stop('dpoilog: All parameters must be same length') 
   if (any((x[x!=0]/trunc(x[x!=0]))!=1)) stop('dpoilog: all x must be integers')
@@ -41,8 +43,13 @@ dpoilog <- function(x, mu, sig, log=FALSE){
 #' @param Y_obs numeric vector Gene expression counts
 #' @param lambda_ref numeric vector Reference expression levels
 #' @param d numeric Total library size
+#' @param mu numeric Global mean expression
+#' @param sig numeric Global standard deviation of expression
+#' @param phi numeric Fold change of expression
 #' @return numeric Joint log likelihood
-#' @keywords internal
+#' @examples
+#' l_lnpois(c(1, 2), c(1, 2), 1, 1, 1)
+#' @export
 l_lnpois = function(Y_obs, lambda_ref, d, mu, sig, phi = 1) {
     if (any(sig <= 0)) {stop(glue('negative sigma. value: {sig}'))}
     if (length(sig) == 1) {sig = rep(sig, length(Y_obs))}
@@ -61,7 +68,9 @@ l_lnpois = function(Y_obs, lambda_ref, d, mu, sig, phi = 1) {
 #' @param beta numeric (default=1)
 #' @param log boolean (default=FALSE)
 #' @return density values returned as numeric vector
-#' @keywords internal
+#' @examples
+#' dbbinom(1, 1, 1, 1)
+#' @export
 dbbinom <- function(x, size, alpha = 1, beta = 1, log = FALSE) {
     cppdbbinom(x, size, alpha, beta, log[1L])
 }
@@ -72,7 +81,9 @@ dbbinom <- function(x, size, alpha = 1, beta = 1, log = FALSE) {
 #' @param alpha numeric Alpha parameter of Beta-Binomial distribution
 #' @param beta numeric Beta parameter of Beta-Binomial distribution
 #' @return numeric Joint log likelihood
-#' @keywords internal
+#' @examples
+#' l_bbinom(c(1, 2), c(1, 2), 1, 1)
+#' @export
 l_bbinom = function(AD, DP, alpha, beta) {
     sum(dbbinom(AD, DP, alpha, beta, log = TRUE))
 }

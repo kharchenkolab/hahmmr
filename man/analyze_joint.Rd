@@ -56,3 +56,6 @@ dataframe Bulk allele and expression profile with CNV states
 \description{
 Analyze allele and expression profile
 }
+\examples{
+bulk_example = analyze_joint(bulk_example, hmm = 'S15')
+}

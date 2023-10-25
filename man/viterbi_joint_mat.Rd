@@ -12,6 +12,9 @@ lambda (reference expression rate), mu (global expression mean), sig (global exp
 logPi (log transition prob matrix), phi (expression fold change for each state), delta (prior for each state),
 alpha (alpha for each state), beta (beta for each state), states (states), p_s (phase switch probs)}
 }
+\value{
+character vector; decoded states
+}
 \description{
 Generalized viterbi algorithm for joint HMM, can handle multiple sets of observations
 }

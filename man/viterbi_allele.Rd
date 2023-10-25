@@ -12,6 +12,9 @@ logPi (log transition prob matrix), delta (prior for each state),
 alpha (alpha for each state), beta (beta for each state),
 states (states), p_s (phase switch probs)}
 }
+\value{
+character vector Decoded states
+}
 \description{
 Viterbi algorithm for allele HMM
 }

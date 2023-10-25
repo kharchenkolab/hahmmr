@@ -46,6 +46,10 @@ run_joint_hmm_s15(
 
 \item{theta_min}{numeric Minimum haplotype imbalance threshold}
 
+\item{theta_neu}{numeric Haplotype imbalance threshold for neutral state}
+
+\item{bal_cnv}{logical Whether to include balanced CNV states}
+
 \item{phi_del}{numeric Expected fold change for deletion}
 
 \item{phi_amp}{numeric Expected fold change for amplification}
@@ -58,15 +62,33 @@ run_joint_hmm_s15(
 
 \item{sig}{numeric Global expression variance}
 
+\item{r}{numeric Variant mapping bias}
+
 \item{t}{numeric Transition probability between copy number states}
 
 \item{gamma}{numeric Overdispersion in the allele-specific expression}
 
+\item{prior}{numeric vector Prior probabilities for each state}
+
 \item{exp_only}{logical Whether to only use expression data}
 
 \item{allele_only}{logical Whether to only use allele data}
+
+\item{classify_allele}{logical Whether to classify allele states}
+
+\item{debug}{logical Whether to print debug messages}
+
+\item{...}{Additional parameters}
+}
+\value{
+character vector Decoded states
 }
 \description{
 Run 15-state joint HMM on a pseudobulk profile
 }
-\keyword{internal}
+\examples{
+with(bulk_example, {
+    run_joint_hmm_s15(pAD = pAD, DP = DP, p_s = p_s, Y_obs = Y_obs, lambda_ref = lambda_ref, 
+    d_total = na.omit(unique(d_obs)), mu = mu, sig = sig, t = 1e-5, gamma = 30, theta_min = 0.08)
+})
+}

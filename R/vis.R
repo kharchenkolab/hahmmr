@@ -299,7 +299,6 @@ plot_bulks = function(
             function(bulk) {
 
                 sample = unique(bulk$sample)
-                n_cells = unique(bulk$n_cells)
 
                 p = plot_psbulk(
                         bulk, ...
@@ -312,12 +311,7 @@ plot_bulks = function(
                     )
 
                 if (title) {
-                    if (is.null(n_cells)) {
-                        title_text = sample
-                    } else {
-                        title_text = glue('{sample} (n={n_cells})')
-                    }
-                    p = p + ggtitle(title_text)
+                    p = p + ggtitle(sample)
                 }
 
                 return(p)

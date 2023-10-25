@@ -3,7 +3,6 @@
 
 using namespace Rcpp;
 
-
 #ifdef HAVE_LONG_DOUBLE
 #  define LDOUBLE long double
 #  define EXPL expl
@@ -12,6 +11,11 @@ using namespace Rcpp;
 #  define EXPL exp
 #endif
 
+//' logSumExp function
+//'
+//' @param x NumericVector
+//' @return double logSumExp of x
+//' @export
 // [[Rcpp::export]]
 double logSumExp(const arma::vec& x) {
     // https://github.com/helske/seqHMM/blob/master/src/logSumExp.cpp
@@ -29,7 +33,6 @@ double logSumExp(const arma::vec& x) {
   
     return maxv + log1p(cumsum);
 }
-
 
 // expensive for loops in likelihood_allele() and forward_back_allele)()
 

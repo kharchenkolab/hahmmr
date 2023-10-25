@@ -11,11 +11,16 @@ calc_allele_lik_s2(pAD, DP, R, p_s, theta, gamma = 20, r = 0.015)
 
 \item{DP}{integer vector Total alelle counts}
 
+\item{R}{numeric vector Variant mapping bias direction}
+
 \item{p_s}{numeric vector Phase switch probabilities}
 
 \item{theta}{numeric Haplotype imbalance}
 
 \item{gamma}{numeric Overdispersion in the allele-specific expression}
+}
+\value{
+numeric vector Allele likelihoods
 }
 \description{
 Calculate allele likelihoods for 2-state allele HMM

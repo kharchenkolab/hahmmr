@@ -27,6 +27,10 @@ run_allele_hmm_s5(
 \item{theta_min}{numeric Minimum haplotype frequency deviation threshold}
 
 \item{gamma}{numeric Overdispersion in the allele-specific expression}
+
+\item{prior}{numeric vector Prior probabilities for each state}
+
+\item{...}{Additional parameters}
 }
 \value{
 character vector Decoded states
@@ -34,4 +38,8 @@ character vector Decoded states
 \description{
 Run a 5-state allele-only HMM - two theta levels
 }
-\keyword{internal}
+\examples{
+with(bulk_example, {
+    run_allele_hmm_s5(pAD = pAD, DP = DP, R = R, p_s = p_s, theta_min = 0.08, gamma = 30)
+})
+}

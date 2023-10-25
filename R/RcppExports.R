@@ -9,6 +9,11 @@ cpp_dgpois <- function(x, alpha, beta, log_prob = FALSE) {
     .Call('_hahmmr_cpp_dgpois', PACKAGE = 'hahmmr', x, alpha, beta, log_prob)
 }
 
+#' logSumExp function
+#'
+#' @param x NumericVector
+#' @return double logSumExp of x
+#' @export
 logSumExp <- function(x) {
     .Call('_hahmmr_logSumExp', PACKAGE = 'hahmmr', x)
 }
@@ -29,6 +34,13 @@ roman2int_internal <- function(letters, nchar) {
     .Call('_hahmmr_roman2int_internal', PACKAGE = 'hahmmr', letters, nchar)
 }
 
+#' Fit MLE of log-normal Poisson model
+#'
+#' @param Y_obs Vector of observed counts
+#' @param lambda_ref Vector of reference rates
+#' @param d integer Total depth
+#' @return NumericVector MLE estimates of mu and sigma
+#' @export
 fit_lnpois_cpp <- function(Y_obs, lambda_ref, d) {
     .Call('_hahmmr_fit_lnpois_cpp', PACKAGE = 'hahmmr', Y_obs, lambda_ref, d)
 }

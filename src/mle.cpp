@@ -26,6 +26,13 @@ class fit_lnpois : public Functor {
     };
 };
 
+//' Fit MLE of log-normal Poisson model
+//'
+//' @param Y_obs Vector of observed counts
+//' @param lambda_ref Vector of reference rates
+//' @param d integer Total depth
+//' @return NumericVector MLE estimates of mu and sigma
+//' @export
 // [[Rcpp::export]]
 arma::rowvec fit_lnpois_cpp(std::vector<int> Y_obs, std::vector<double> lambda_ref, int d) {
 
