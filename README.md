@@ -3,6 +3,8 @@
 <!-- badges: start -->
 [![<kharchenkolab>](https://circleci.com/gh/kharchenkolab/hahmmr.svg?style=svg)](https://app.circleci.com/pipelines/github/kharchenkolab/hahmmr)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8342630.svg)](https://doi.org/10.5281/zenodo.8342630)
+[![CRAN status](https://www.r-pkg.org/badges/version/hahmmr)](https://cran.r-project.org/package=hahmmr)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/hahmmr)](https://cran.r-project.org/package=hahmmr)
 <!-- badges: end -->
 
 <img src="hahmmr_logo.png" align="right" width="150">
