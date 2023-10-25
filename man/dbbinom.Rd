@@ -22,7 +22,7 @@ dbbinom(x, size, alpha = 1, beta = 1, log = FALSE)
 \item{log}{boolean (default=FALSE)}
 }
 \value{
-density values returned as numeric vector
+numeric Probability density values
 }
 \description{
 Beta-binomial distribution density function

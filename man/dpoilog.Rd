@@ -15,6 +15,9 @@ dpoilog(x, mu, sig, log = FALSE)
 
 \item{log}{boolean Return the log density if TRUE (default=FALSE)}
 }
+\value{
+numeric Probability density values
+}
 \description{
 Returns the density for the Poisson lognormal distribution with parameters mu and sig
 }

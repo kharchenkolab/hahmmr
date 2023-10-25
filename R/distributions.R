@@ -12,7 +12,7 @@ NULL
 #' @param mu mean of lognormal distribution
 #' @param sig standard deviation of lognormal distribution
 #' @param log boolean Return the log density if TRUE (default=FALSE)
-#' @return NULL
+#' @return numeric Probability density values
 #' @examples
 #' p = dpoilog(1, 1, 1)
 #' @export
@@ -67,7 +67,7 @@ l_lnpois = function(Y_obs, lambda_ref, d, mu, sig, phi = 1) {
 #' @param alpha numeric (default=1)
 #' @param beta numeric (default=1)
 #' @param log boolean (default=FALSE)
-#' @return density values returned as numeric vector
+#' @return numeric Probability density values
 #' @examples
 #' dbbinom(1, 1, 1, 1)
 #' @export
