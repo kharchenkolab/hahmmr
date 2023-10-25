@@ -14,7 +14,7 @@
 # Installation
 Install via CRAN:
 ```
-install.packages(hahmmr)
+install.packages("hahmmr")
 ```
 
 Or install the latest GitHub version using `devtools`:
