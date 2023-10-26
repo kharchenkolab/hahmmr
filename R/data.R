@@ -1,37 +1,37 @@
 #' gene model (hg38)
-#' @export
+#' 
 "gtf_hg38"
 
 #' gene model (hg19)
-#' @export
+#' 
 "gtf_hg19"
 
 #' gene model (mm10)
-#' @export
+#' 
 "gtf_mm10"
 
 #' chromosome sizes (hg38)
-#' @export
+#' 
 "chrom_sizes_hg38"
 
 #' genome gap regions (hg38)
-#' @export
+#' 
 "gaps_hg38"
 
 #' centromere regions (hg38)
-#' @export
+#' 
 "acen_hg38"
 
 #' chromosome sizes (hg19)
-#' @export
+#' 
 "chrom_sizes_hg19"
 
 #' genome gap regions (hg19)
-#' @export
+#' 
 "gaps_hg19"
 
 #' centromere regions (hg19)
-#' @export
+#' 
 "acen_hg19"
 
 #' HMM object for unit tests 
