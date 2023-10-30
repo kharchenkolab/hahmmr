@@ -11,6 +11,10 @@
 
 **H**aplotype-**a**ware **H**idden **M**arkov **M**odel for **R**NA (HaHMMR) is a method for detecting copy number variations (CNVs) from bulk RNA-seq data. Extending the haplotype-aware HMM in [Numbat](https://github.com/kharchenkolab/numbat) for single-cell RNA-seq, HaHMMR offers enhanced capabilities for detecting low-clonality CNVs from bulk data.
 
+For details of the method, please check out our paper:
+
+> [Teng Gao, Maria Eleni Kastriti, Viktor Ljungström, Andreas Heinzel, Arthur S. Tischler, Rainer Oberbauer, Po-Ru Loh, Igor Adameyko, Peter J. Park & Peter V. Kharchenko. A pan-tissue survey of mosaic chromosomal alterations in 948 individuals. Nature Genetics (2023).](https://www.nature.com/articles/s41588-023-01537-1)
+
 # Installation
 Install via CRAN:
 ```
