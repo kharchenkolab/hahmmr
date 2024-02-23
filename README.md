@@ -15,6 +15,8 @@ For details of the method, please check out our paper:
 
 > [Teng Gao, Maria Eleni Kastriti, Viktor Ljungström, Andreas Heinzel, Arthur S. Tischler, Rainer Oberbauer, Po-Ru Loh, Igor Adameyko, Peter J. Park & Peter V. Kharchenko. A pan-tissue survey of mosaic chromosomal alterations in 948 individuals. Nature Genetics (2023).](https://www.nature.com/articles/s41588-023-01537-1)
 
+Note that HaHMMR has now become a submodule of [Numbat](https://github.com/kharchenkolab/numbat) (v1.4.0+).
+
 # Installation
 Install via CRAN:
 ```
