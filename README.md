@@ -13,8 +13,6 @@
 
 This repo contains HaHMMR as a standalone package and as a submodule of Numbat (v1.4.0+).
 
-![hmm](https://github.com/kharchenkolab/hahmmr/assets/13375875/31bd362a-b6b0-417f-a457-541735b01c4d)
-
 For details of the method, please check out our paper(s):
 
 > [Teng Gao, Maria Eleni Kastriti, Viktor Ljungström, Andreas Heinzel, Arthur S. Tischler, Rainer Oberbauer, Po-Ru Loh, Igor Adameyko, Peter J. Park & Peter V. Kharchenko. A pan-tissue survey of mosaic chromosomal alterations in 948 individuals. Nature Genetics (2023).](https://www.nature.com/articles/s41588-023-01537-1)
